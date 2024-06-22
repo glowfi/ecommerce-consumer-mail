@@ -55,4 +55,5 @@ async def consume_from_kafka():
 
 # connect_mongodb()
 keep_alive()
+print("Running others ...")
 asyncio.run(consume_from_kafka())
