@@ -2,11 +2,14 @@ from Kafka.connection import kafka_connection
 from Database.connection import databaseConnection
 import asyncio
 import json
+from keep_alive import keep_alive
 
 from helper.confirm_email import confirm_email
 from helper.close_account import close_account
 from helper.forgot_password import forgot_password
 from helper.order_receipt import order_receipt
+
+keep_alive()
 
 
 async def start_processing(consumer):
