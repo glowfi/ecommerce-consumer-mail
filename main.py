@@ -9,8 +9,6 @@ from helper.close_account import close_account
 from helper.forgot_password import forgot_password
 from helper.order_receipt import order_receipt
 
-keep_alive()
-
 
 async def start_processing(consumer):
     print("Started cosuming messages ...")
@@ -55,6 +53,6 @@ async def consume_from_kafka():
         await kafka_connection.disconnect()
 
 
-if __name__ == "__main__":
-    # connect_mongodb()
-    asyncio.run(consume_from_kafka())
+# connect_mongodb()
+keep_alive()
+asyncio.run(consume_from_kafka())
