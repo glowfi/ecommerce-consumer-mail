@@ -24,7 +24,7 @@ def send_mail(data: MailBody | None = None):
     yag = yagmail.SMTP(USERNAME, PASSWORD)
 
     try:
-        yag.send(data['to'], data'subject'], data["body"])
+        yag.send(data["to"], data["subject"], data["body"])
         print("Mail send!")
         return {"status": 200, "errors": None}
     except Exception as e:
