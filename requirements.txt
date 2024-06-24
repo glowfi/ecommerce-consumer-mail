@@ -7,6 +7,7 @@ idna==3.7
 lxml==5.2.2
 more-itertools==10.3.0
 premailer==3.10.0
+python-dotenv==1.0.1
 requests==2.32.3
 urllib3==2.2.2
 yagmail==0.15.293
