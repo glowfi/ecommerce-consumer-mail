@@ -28,7 +28,6 @@ def send_mail(data: dict | None = None):
     message["From"] = str(EMAIL)
     message["To"] = ",".join(msg.to)
     message["Subject"] = msg.subject
-    print(msg.body)
 
     ctx = create_default_context()
 
