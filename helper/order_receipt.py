@@ -637,6 +637,7 @@ def order_receipt(data):
     amount, total = 0, 0
 
     for product in products:
+        print(product["title"])
         amount += product["quantity"] * product["price"]
         init_table += f"""
         <tr>
@@ -665,22 +666,24 @@ def order_receipt(data):
 
     global html_content
 
-    html_content = html_content.replace("[[PASTETABLEHERE]]", init_table)
+    html_content = html_content.replace("[[PASTETABLEHERE]]", init_table[::])
     html_content = html_content.replace("{{SubTotal}}", str(f"{round(amount,2)}"))
     html_content = html_content.replace("{{Tax}}", str(tax))
     html_content = html_content.replace("{{Shipping Fee}}", str(shipping_fee))
     html_content = html_content.replace("{{total}}", str(f"{round(total,2)}"))
     html_content = html_content.replace("{{receipt_id}}", "Order ID: " + str(order_id))
-    html_content = html_content.replace("{{date}}", "Date of order: " + str(orderedAt))
+    html_content = html_content.replace("{{date}}", "Date of order: " + orderedAt)
     html_content = html_content.replace("[Product Name]", str(STORE_NAME))
     html_content = html_content.replace("{{name}}", name)
     html_content = html_content.replace("{{support_url}}", "")
     html_content = html_content.replace("[Company Name, LLC]", f"{STORE_NAME} LLC")
 
+    print(init_table)
+
     send_mail(
         {
             "to": [reciever],
             "subject": "Order Receipt",
-            "body": html_content,
+            "body": html_content[::],
         }
     )

@@ -25,7 +25,7 @@ class MailBody(BaseModel):
 def send_mail(data: dict | None = None):
     msg = MailBody(**data)
     message = MIMEText(msg.body, "html")
-    message["From"] = str(EMAIL) + "@resend.com"
+    message["From"] = str(EMAIL)
     message["To"] = ",".join(msg.to)
     message["Subject"] = msg.subject
 
@@ -39,6 +39,8 @@ def send_mail(data: dict | None = None):
             server.login(EMAIL, PASSWORD)
             server.send_message(message)
             server.quit()
+            print("Mail send!")
         return {"status": 200, "errors": None}
     except Exception as e:
+        print("Error sendinf email!")
         return {"status": 500, "errors": e}
