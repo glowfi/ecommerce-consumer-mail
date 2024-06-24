@@ -542,10 +542,10 @@ def forgot_password(data):
         .replace("[Company Name, LLC]", f"{STORE_NAME} LLC")
     )
 
-    send_mail(
-        {
-            "to": [email],
-            "subject": "Forgot Password Link",
-            "body": html_content,
-        },
-    )
+    new_data = {
+        "to": [email],
+        "subject": "Forgot Password Link",
+        "body": html_content,
+    }
+
+    send_mail(new_data)

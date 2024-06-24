@@ -463,7 +463,7 @@ html_content = """
                     <td class="content-cell">
                       <div class="f-fallback">
                         <h1>Hi {{name}},</h1>
-                        <p>Thanks for using [Product Name]. This email is the receipt for your purchase. No payment is due.</p>
+                        <p>Thanks for using [Product Name]. This email is the receipt for your purchase.</p>
                         <!-- Discount -->
                         <table class="purchase" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                           <tr>
@@ -656,7 +656,7 @@ def order_receipt(data):
         >
         <span
         class="f-fallback"
-        >{round(product['price']*product['quantity'],2)}</span
+        >${round(product['price']*product['quantity'],2)}</span
         >
         </td></tr>
         """
@@ -664,23 +664,34 @@ def order_receipt(data):
     total += amount + 5 + 15
 
     global html_content
+    new_html_content = html_content[::]
 
-    html_content = html_content.replace("[[PASTETABLEHERE]]", init_table[::])
-    html_content = html_content.replace("{{SubTotal}}", str(f"{round(amount,2)}"))
-    html_content = html_content.replace("{{Tax}}", str(tax))
-    html_content = html_content.replace("{{Shipping Fee}}", str(shipping_fee))
-    html_content = html_content.replace("{{total}}", str(f"{round(total,2)}"))
-    html_content = html_content.replace("{{receipt_id}}", "Order ID: " + str(order_id))
-    html_content = html_content.replace("{{date}}", "Date of order: " + orderedAt)
-    html_content = html_content.replace("[Product Name]", str(STORE_NAME))
-    html_content = html_content.replace("{{name}}", name)
-    html_content = html_content.replace("{{support_url}}", "")
-    html_content = html_content.replace("[Company Name, LLC]", f"{STORE_NAME} LLC")
-
-    send_mail(
-        {
-            "to": [reciever],
-            "subject": "Order Receipt",
-            "body": html_content[::],
-        }
+    new_html_content = new_html_content.replace("[[PASTETABLEHERE]]", init_table[::])
+    new_html_content = new_html_content.replace(
+        "{{SubTotal}}", str(f"${round(amount,2)}")
     )
+    new_html_content = new_html_content.replace("{{Tax}}", f"${str(tax)}")
+    new_html_content = new_html_content.replace(
+        "{{Shipping Fee}}", f"${str(shipping_fee)}"
+    )
+    new_html_content = new_html_content.replace("{{total}}", str(f"${round(total,2)}"))
+    new_html_content = new_html_content.replace(
+        "{{receipt_id}}", "Order ID: " + str(order_id)
+    )
+    new_html_content = new_html_content.replace(
+        "{{date}}", "Date of order: " + orderedAt
+    )
+    new_html_content = new_html_content.replace("[Product Name]", str(STORE_NAME))
+    new_html_content = new_html_content.replace("{{name}}", name)
+    new_html_content = new_html_content.replace("{{support_url}}", "")
+    new_html_content = new_html_content.replace(
+        "[Company Name, LLC]", f"{STORE_NAME} LLC"
+    )
+
+    new_data = {
+        "to": [reciever],
+        "subject": "Order Receipt",
+        "body": new_html_content[::],
+    }
+
+    send_mail(new_data)

@@ -520,10 +520,10 @@ def close_account(data):
     html_content = html_content.replace("{{support_url}}", "")
     html_content = html_content.replace("[Company Name, LLC]", f"{STORE_NAME} LLC")
 
-    send_mail(
-        {
-            "to": [email],
-            "subject": "Account Closed",
-            "body": html_content,
-        }
-    )
+    new_data = {
+        "to": [email],
+        "subject": "Account Closed",
+        "body": html_content,
+    }
+
+    send_mail(new_data)
