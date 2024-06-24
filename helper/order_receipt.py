@@ -637,7 +637,6 @@ def order_receipt(data):
     amount, total = 0, 0
 
     for product in products:
-        print(product["title"])
         amount += product["quantity"] * product["price"]
         init_table += f"""
         <tr>
@@ -677,8 +676,6 @@ def order_receipt(data):
     html_content = html_content.replace("{{name}}", name)
     html_content = html_content.replace("{{support_url}}", "")
     html_content = html_content.replace("[Company Name, LLC]", f"{STORE_NAME} LLC")
-
-    print(init_table)
 
     send_mail(
         {

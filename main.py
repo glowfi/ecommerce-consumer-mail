@@ -15,7 +15,6 @@ async def start_processing(consumer):
 
     async for msg in consumer:
         consumed_message = json.loads(msg.value.decode())
-        print(consumed_message)
         if consumed_message["operation"] == "keep-alive":
             print("keep-alive!")
             break
