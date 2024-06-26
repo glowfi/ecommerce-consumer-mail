@@ -45,11 +45,9 @@ async def consume_from_kafka():
         await start_processing(consumer)
 
     except Exception as e:
-        print("Error :", str(e))
-
-    finally:
         # Disconnect with Kafka
         await kafka_connection.disconnect()
+        print("Error :", str(e))
 
 
 if __name__ == "__main__":
